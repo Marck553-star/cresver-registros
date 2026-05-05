@@ -86,6 +86,11 @@ function createTaskRow() {
     taskSelect.appendChild(option);
   });
 
+  const otherTaskInput = document.createElement("input");
+  otherTaskInput.type = "text";
+  otherTaskInput.className = "other-task-input hidden";
+  otherTaskInput.placeholder = "Especificar tarea";
+
   const hourSelect = document.createElement("select");
   hourSelect.className = "hour-select";
   hourSelect.innerHTML = `<option value="">Horas</option>`;
@@ -97,15 +102,13 @@ function createTaskRow() {
     hourSelect.appendChild(option);
   }
 
+  const buttonsRow = document.createElement("div");
+  buttonsRow.className = "task-buttons-row";
+
   const removeBtn = document.createElement("button");
   removeBtn.type = "button";
   removeBtn.className = "remove-btn";
   removeBtn.textContent = "X";
-
-  const otherTaskInput = document.createElement("input");
-  otherTaskInput.type = "text";
-  otherTaskInput.className = "other-task-input hidden";
-  otherTaskInput.placeholder = "Especificar tarea";
 
   removeBtn.addEventListener("click", () => {
     row.remove();
@@ -122,10 +125,12 @@ function createTaskRow() {
     }
   });
 
+  buttonsRow.appendChild(removeBtn);
+
   row.appendChild(taskSelect);
-  row.appendChild(hourSelect);
-  row.appendChild(removeBtn);
   row.appendChild(otherTaskInput);
+  row.appendChild(hourSelect);
+  row.appendChild(buttonsRow);
 
   tasksContainer.appendChild(row);
 }
