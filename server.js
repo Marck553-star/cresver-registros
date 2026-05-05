@@ -32,6 +32,7 @@ app.get("/api/options", async (req, res) => {
 
     res.json({ workers, sites, tasks });
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: "Error cargando opciones" });
   }
 });
@@ -42,16 +43,17 @@ app.get("/api/worker-counts", async (req, res) => {
 
     const rows = await sql`
       SELECT 
-        worker_name, 
+        trabajador AS worker_name,
         COUNT(*)::int AS total,
-        COALESCE(SUM(total_hours), 0)::numeric AS hours
+        COALESCE(SUM(horas_totales), 0)::numeric AS hours
       FROM daily_records
-      WHERE record_date = ${date}
-      GROUP BY worker_name
+      WHERE fecha = ${date}
+      GROUP BY trabajador
     `;
 
     res.json(rows);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: "Error cargando contadores" });
   }
 });
@@ -90,7 +92,7 @@ app.post("/api/register", async (req, res) => {
     }
 
     let totalHours = 0;
-    let tasksText = null;
+    let trabajoText = null;
 
     if (recordType === "Día de trabajo" && Array.isArray(tasks)) {
       totalHours = tasks.reduce((sum, task) => {
@@ -101,7 +103,9 @@ app.post("/api/register", async (req, res) => {
 
       for (const task of tasks) {
         const taskResult = await sql`
-          SELECT name FROM tasks WHERE id = ${task.taskId}
+          SELECT name 
+          FROM tasks 
+          WHERE id = ${task.taskId}
         `;
 
         let taskName = taskResult[0]?.name || "";
@@ -113,7 +117,7 @@ app.post("/api/register", async (req, res) => {
         taskNames.push(`${taskName} (${task.hours}h)`);
       }
 
-      tasksText = taskNames.join(", ");
+      trabajoText = taskNames.join(", ");
     }
 
     const inserted = await sql`
@@ -137,7 +141,7 @@ app.post("/api/register", async (req, res) => {
         ${transport || null},
         ${observations || null},
         ${totalHours},
-        ${tasksText}
+        ${trabajoText}
       )
       RETURNING id
     `;

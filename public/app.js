@@ -21,6 +21,7 @@ const message = document.getElementById("message");
 async function init() {
   const todayRes = await fetch("/api/today");
   const todayData = await todayRes.json();
+
   todaySpain = todayData.today;
   recordDate.value = todaySpain;
 
@@ -31,7 +32,6 @@ async function init() {
   sites = options.sites;
   tasks = options.tasks;
 
-  fillWorkers();
   fillSites();
   await loadWorkerCounts();
   updateDateRules();
@@ -137,7 +137,6 @@ function createTaskRow() {
 
 function updateDateRules() {
   const selectedDate = recordDate.value;
-
   const workOption = document.querySelector(".work-option");
   const workRadio = document.querySelector('input[value="Día de trabajo"]');
 
@@ -211,7 +210,7 @@ function updateWorkerColor() {
   });
 
   const workerName = getWorkerName();
-  const count = workerCounts[workerName] || 0;
+  const count = workerCounts[workerName]?.total || 0;
 
   if (count === 1) {
     workerSelect.classList.add("worker-yellow");
@@ -332,26 +331,18 @@ submitBtn.addEventListener("click", async () => {
   }
 
   let selectedTasks = [];
-  let siteId = null;
-  let otherSiteName = "";
 
   if (recordType === "Día de trabajo") {
-    siteId = siteSelect.value;
+    let selectedSite = siteSelect.value;
 
-    if (!siteId) {
+    if (!selectedSite) {
       showMessage("Selecciona una obra", "error");
       return;
     }
 
-    if (siteId === "Otra...") {
-      otherSiteName = otherSiteInput.value.trim();
-
-      if (!otherSiteName) {
-        showMessage("Escribe el nombre de la obra", "error");
-        return;
-      }
-
-      siteId = null;
+    if (selectedSite === "Otra..." && !otherSiteInput.value.trim()) {
+      showMessage("Escribe el nombre de la obra", "error");
+      return;
     }
 
     const taskRows = document.querySelectorAll(".task-row");
@@ -402,24 +393,24 @@ submitBtn.addEventListener("click", async () => {
 
   let finalSiteName = "";
 
-if (recordType === "Día de trabajo") {
-  if (siteSelect.value === "Otra...") {
-    finalSiteName = otherSiteInput.value.trim();
-  } else {
-    finalSiteName = siteSelect.options[siteSelect.selectedIndex].textContent;
+  if (recordType === "Día de trabajo") {
+    if (siteSelect.value === "Otra...") {
+      finalSiteName = otherSiteInput.value.trim();
+    } else {
+      finalSiteName = siteSelect.options[siteSelect.selectedIndex].textContent;
+    }
   }
-}
 
-const body = {
-  recordDate: recordDate.value,
-  workerName,
-  recordType,
-  siteName: finalSiteName,
-  tasks: selectedTasks,
-  food: getSelectedRadio("food"),
-  transport: getSelectedRadio("transport"),
-  observations: observations.value
-};
+  const body = {
+    recordDate: recordDate.value,
+    workerName,
+    recordType,
+    siteName: finalSiteName,
+    tasks: selectedTasks,
+    food: getSelectedRadio("food"),
+    transport: getSelectedRadio("transport"),
+    observations: observations.value
+  };
 
   const res = await fetch("/api/register", {
     method: "POST",
@@ -436,10 +427,10 @@ const body = {
     return;
   }
 
-  showMessage(data.message, "success");
-
   await loadWorkerCounts();
   resetFormAfterSubmit();
+
+  showMessage(data.message, "success");
 });
 
 function showMessage(text, type) {
