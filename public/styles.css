@@ -68,16 +68,18 @@ textarea {
   margin-bottom: 20px;
 }
 
-/* COLORES TRABAJADORES */
 select.worker-yellow {
   background: #fff3a3;
 }
+
 select.worker-orange {
   background: #ffc46b;
 }
+
 select.worker-red {
   background: #ff8a8a;
 }
+
 select.worker-purple {
   background: #d8b4fe;
 }
@@ -85,12 +87,15 @@ select.worker-purple {
 option.worker-yellow {
   background: #fff3a3;
 }
+
 option.worker-orange {
   background: #ffc46b;
 }
+
 option.worker-red {
   background: #ff8a8a;
 }
+
 option.worker-purple {
   background: #d8b4fe;
 }
@@ -124,7 +129,6 @@ label {
   display: none;
 }
 
-/* TAREAS */
 .task-row {
   display: flex;
   flex-direction: column;
@@ -164,7 +168,6 @@ label {
   cursor: pointer;
 }
 
-/* DIETAS */
 .diet-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -224,10 +227,6 @@ textarea {
 .error {
   color: #dc2626;
 }
-
-/* ========================= */
-/* FIX FECHA MOVIL DEFINITIVO */
-/* ========================= */
 
 @media (max-width: 700px) {
   .container {

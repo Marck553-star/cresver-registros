@@ -48,8 +48,8 @@ function fillWorkers() {
 
     const info = workerCounts[worker.name];
 
-    if (info && info.hours > 0) {
-      option.textContent = `${worker.name} - ${info.hours}h`;
+    if (info && info.total > 0) {
+      option.textContent = `${worker.name} (${info.total} fichaje${info.total > 1 ? "s" : ""}) - ${info.hours}h`;
     } else {
       option.textContent = worker.name;
     }
@@ -333,7 +333,7 @@ submitBtn.addEventListener("click", async () => {
   let selectedTasks = [];
 
   if (recordType === "Día de trabajo") {
-    let selectedSite = siteSelect.value;
+    const selectedSite = siteSelect.value;
 
     if (!selectedSite) {
       showMessage("Selecciona una obra", "error");
@@ -429,7 +429,6 @@ submitBtn.addEventListener("click", async () => {
 
   await loadWorkerCounts();
   resetFormAfterSubmit();
-
   showMessage(data.message, "success");
 });
 
