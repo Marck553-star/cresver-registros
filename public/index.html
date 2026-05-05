@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registro diario CRESVER80</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <main class="container">
+    <header class="header">
+      <img src="Logo.jpg" class="logo" alt="CRESVER80">
+      <h1>Registro diario CRESVER80</h1>
+    </header>
+
+    <section class="card">
+      <div class="date-row">
+        <input type="date" id="recordDate" />
+        <button id="todayBtn">Hoy</button>
+      </div>
+
+      <label>Seleccionar trabajador*</label>
+      <select id="workerSelect">
+        <option value="">Elegir trabajador...</option>
+      </select>
+
+      <input 
+        type="text" 
+        id="otherWorkerInput" 
+        class="hidden" 
+        placeholder="Nombre del trabajador"
+      />
+
+      <label>Seleccionar tipo de registro*</label>
+
+      <div class="radio-group">
+        <label class="radio-option future-option">
+          <input type="radio" name="recordType" value="Vacaciones" />
+          Vacaciones
+        </label>
+
+        <label class="radio-option future-option">
+          <input type="radio" name="recordType" value="Baja" />
+          Baja
+        </label>
+
+        <label class="radio-option work-option">
+          <input type="radio" name="recordType" value="Día de trabajo" />
+          Día de trabajo
+        </label>
+      </div>
+
+      <div id="workFields" class="hidden">
+        <label>Seleccionar obra*</label>
+        <select id="siteSelect">
+          <option value="">Elegir obra...</option>
+        </select>
+
+        <input 
+          type="text" 
+          id="otherSiteInput" 
+          class="hidden" 
+          placeholder="Nombre de la obra"
+        />
+
+        <label>Seleccionar tareas*</label>
+
+        <div id="tasksContainer"></div>
+
+        <button type="button" id="addTaskBtn" class="small-btn">+</button>
+
+        <label>Seleccionar dietas</label>
+
+        <div class="diet-row">
+          <div class="diet-box">
+            <h3>🍽️ Comidas</h3>
+
+            <label class="radio-option">
+              <input type="radio" name="food" value="Empresa" />
+              Empresa
+            </label>
+
+            <label class="radio-option">
+              <input type="radio" name="food" value="Trabajador" />
+              Trabajador
+            </label>
+          </div>
+
+          <div class="diet-box">
+            <h3>🚗 Transporte</h3>
+
+            <label class="radio-option">
+              <input type="radio" name="transport" value="Empresa" />
+              Empresa
+            </label>
+
+            <label class="radio-option">
+              <input type="radio" name="transport" value="Trabajador" />
+              Trabajador
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <label>Observaciones</label>
+      <textarea id="observations" maxlength="100" placeholder="Observaciones del día..."></textarea>
+      <div class="counter"><span id="counter">0</span>/100</div>
+
+      <button id="submitBtn" class="submit-btn">Registrar día</button>
+
+      <p id="message"></p>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
