@@ -68,18 +68,16 @@ textarea {
   margin-bottom: 20px;
 }
 
+/* COLORES TRABAJADORES */
 select.worker-yellow {
   background: #fff3a3;
 }
-
 select.worker-orange {
   background: #ffc46b;
 }
-
 select.worker-red {
   background: #ff8a8a;
 }
-
 select.worker-purple {
   background: #d8b4fe;
 }
@@ -87,15 +85,12 @@ select.worker-purple {
 option.worker-yellow {
   background: #fff3a3;
 }
-
 option.worker-orange {
   background: #ffc46b;
 }
-
 option.worker-red {
   background: #ff8a8a;
 }
-
 option.worker-purple {
   background: #d8b4fe;
 }
@@ -129,6 +124,7 @@ label {
   display: none;
 }
 
+/* TAREAS */
 .task-row {
   display: flex;
   flex-direction: column;
@@ -142,7 +138,7 @@ label {
 }
 
 .other-task-input {
-  grid-column: 1 / -1;
+  width: 100%;
 }
 
 .small-btn {
@@ -168,6 +164,7 @@ label {
   cursor: pointer;
 }
 
+/* DIETAS */
 .diet-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -228,61 +225,63 @@ textarea {
   color: #dc2626;
 }
 
+/* ========================= */
+/* FIX FECHA MOVIL DEFINITIVO */
+/* ========================= */
+
 @media (max-width: 700px) {
-  .date-row,
-  .task-row,
-  .diet-row {
-    grid-template-columns: 1fr;
+  .container {
+    padding: 10px;
+  }
+
+  .card {
+    padding: 14px;
+    border-radius: 18px;
+    overflow: hidden;
+  }
+
+  .date-row {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+
+  .date-row input[type="date"] {
+    width: 100%;
+    height: 52px;
+    min-height: 52px;
+    max-height: 52px;
+    padding: 8px 12px;
+    font-size: 15px;
+    line-height: 1;
+    border-radius: 12px;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+
+  .date-row input[type="date"]::-webkit-date-and-time-value {
+    text-align: center;
+  }
+
+  .date-row input[type="date"]::-webkit-datetime-edit {
+    font-size: 15px;
+    padding: 0;
+  }
+
+  #todayBtn {
+    height: 52px;
+    padding: 0;
+    font-size: 17px;
+    border-radius: 12px;
   }
 
   h1 {
     font-size: 22px;
   }
 
-  .card {
-    padding: 16px;
-  }
-}
-input[type="date"] {
-  max-width: 100%;
-}
-
-@media (max-width: 700px) {
-  .date-row {
+  .diet-row {
     grid-template-columns: 1fr;
-  }
-
-  input[type="date"] {
-    font-size: 16px;
-    padding: 14px;
-  }
-}
-/* ARREGLAR INPUT DATE EN MOVIL */
-input[type="date"] {
-  width: 100%;
-  max-width: 100%;
-  font-size: 16px;
-  padding: 14px;
-  overflow: hidden;
-}
-
-/* FORZAR QUE NO SE DESBORDE */
-.date-row input[type="date"] {
-  min-width: 0;
-}
-
-/* MOVIL */
-@media (max-width: 700px) {
-  .date-row {
-    grid-template-columns: 1fr;
-  }
-
-  input[type="date"] {
-    font-size: 15px;
-    padding: 12px;
-  }
-
-  #todayBtn {
-    height: 50px;
+    gap: 20px;
   }
 }
